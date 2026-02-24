@@ -216,6 +216,7 @@
     (mixin (text:basic<%>) (ml-tools-text<%>)
       (inherit position-paragraph paragraph-start-position
                delete insert
+               set-position paragraph-end-position get-character
                begin-edit-sequence end-edit-sequence)
       (define/public (range-indent range-indentation-function start end)
         (define substs (range-indentation-function this start end))
@@ -234,6 +235,16 @@
                      (delete pos (+ pos del-amt)))
                    (unless (equal? insert-str "")
                      (insert insert-str pos))
+                   (when (= start end)
+                     (define para-end (paragraph-end-position start-line))
+                     (let loop ([pos pos])
+                       (cond
+                         [(< pos para-end)
+                          (define c (get-character pos))
+                          (cond
+                            [(char-whitespace? c) (loop (+ pos 1))]
+                            [else (set-position pos pos)])]
+                         [else (void)])))
                    (loop (cdr substs) (add1 line))))
                (end-edit-sequence)
                #t)))
