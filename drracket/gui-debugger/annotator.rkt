@@ -384,7 +384,9 @@
             [(quote-syntax _) expr]
 
             [(quote-syntax _ #:local) expr]
-            
+
+            [(#%foreign-inline _) expr]
+
             [(with-continuation-mark key mark body)
              (quasisyntax/loc expr (with-continuation-mark key
                                      #,(annotate #'mark bound-vars #f module-name )
