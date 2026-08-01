@@ -1244,7 +1244,7 @@ f: contract violation
        (define stderr-content-length
          (bytes-length (get-output-bytes tee-error-port #t)))
        (cond
-         [(and (zero? code) (> stderr-content-length 0))
+         [(and (number? code) (zero? code) (> stderr-content-length 0))
           (write-string "non-empty stderr\n" stderr)
           (old-exit-hdlr 1)]
          [else
