@@ -1249,7 +1249,7 @@ f: contract violation
           (old-exit-hdlr 1)]
          [else
           (old-exit-hdlr code)]))))
-  (putenv "PLTDRTEST" "yes")
+  (void (putenv "PLTDRTEST" "yes"))
   (eval-jit-enabled #f)
   (parameterize ([current-error-port outp])
     (dynamic-require (quote-module-path "..") #f))
