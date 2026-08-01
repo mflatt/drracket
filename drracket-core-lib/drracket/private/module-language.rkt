@@ -242,6 +242,7 @@
            (get-language-name)]))
       
       (define/override (use-namespace-require/copy?) #f)
+      (define/override (get-transformer-module) #f)
       
       (define/augment (capability-value key)
         (cond
